@@ -9,6 +9,18 @@ var vocoder = {
   note: 246.942
 };
 
+var notes = {
+  A:  110,     A#: 116.541,
+  Bb: 116.541, B: 123.471,
+  C:  130.813, C#: 138.591,
+  Db: 138.591, D: 146.832,  D#: 155.563,
+  Eb: 155.563, E: 164.814,
+  F:  174.614, F#: 174.614,
+  Gb: 174.614, G: 195.998,  G#: 207.652,
+  Ab: 207.652, A: 220,      A#: 233.082,
+  Bb: 233.082, B: 246.942
+}
+
 vocoder.connectThings = function(micSource){
   var
     mic         = context.createMediaStreamSource(micSource),
