@@ -1,0 +1,20 @@
+{
+  "name": "phasevocoder",
+  "version": "0.0.0",
+  "authors": [
+    "Daniel Chao <daniel.h.chao@gmail.com>"
+  ],
+  "description": "An HTML5 phase vocoder!",
+  "main": "main.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3"
+  }
+}

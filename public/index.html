@@ -1,20 +1,71 @@
 <!doctype html>
 <html>
 <head>
-  <title>Phase Vocoder</title>
+  <link href="assets/css/normalize.css" rel="stylesheet" />
+  <link href="assets/css/main.css" rel="stylesheet" />
+  <title>Keyboard Singer - Sing harmonies with yourself</title>
 </head>
 <body>
 
-  <audio></audio>
+  <div class="keyboard">
+    <div class="A"></div>
+    <div class="black A#"></div>
+    <div class="B"></div>
+    <div class="black B#"></div>
+    <div class="C"></div>
+    <div class="black C#"></div>
+    <div class="D"></div>
+    <div class="black D#"></div>
+    <div class="E"></div>
+    <div class="F"></div>
+    <div class="black F#"></div>
+    <div class="G"></div>
+    <div class="black G#"></div>
+    <div class="A"></div>
+    <div class="black A#"></div>
+    <div class="B"></div>
+  </div>
 
-  <script src="lib/pitchfinder.js"></script>
-  <script src="lib/pitchshift.js"></script>
-  <script src="lib/DSP.js"></script>
-  <script src="lib/bower_components/jquery/jquery.min.js"></script>
-  <script src="lib/main.js"></script>
+  <script src="script/pitchfinder.js"></script>
+  <script src="script/bower_components/jquery/jquery.min.js"></script>
+  <script src="script/main.js"></script>
   <script>
     $(function(){
       vocoder.getMicSource();
+      var players = {};
+      setTimeout(function(){
+        var notes = ['A', 'A#', 'B', 'B#', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+        notes.forEach(function(note){
+          var node = vocoder.createPitchNode(vocoder.notes[note]);
+          node.isPlaying = false;
+          players[note] = node;
+        })
+      }, 1000);
+
+      downKeyMap = {
+        97: "A", 119: "A#", 115: "B", 100: "C", 114: "C#", 102: "D",
+        116: "D#", 103: "E", 104: "F", 117: "F#", 106: "G", 105: "G#"
+      };
+
+      upKeyMap = {
+        65: "A", 87: "A#", 83: "B", 68: "C", 82: "C#", 70: "D",
+        84: "D#", 71: "E", 72: "F", 85: "F#", 74: "G", 73: "G#"
+      };
+
+      $(document).keypress(function(key){
+        var player = players[downKeyMap[key.which]];
+        if(!player.isPlaying){
+          console.log("pressed key is: " + key.which);
+          player.play();
+          player.isPlaying = true;
+        }
+      });
+
+      $(document).keyup(function(key){
+        var player = players[upKeyMap[key.which]];
+        player.stop();
+        player.isPlaying = false;
+      })
     })
   </script>
 </body>
