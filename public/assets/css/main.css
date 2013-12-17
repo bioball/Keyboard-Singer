@@ -1,8 +1,144 @@
+@import url(http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:400);
+
 html {
   height: 100%;
 }
 
 body {
   height: 100%;
-  background-color: #EDD6D1;
+  background-color: #3B240D
+}
+
+
+header {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 170px;
+  background-color: #F5EADC;
+}
+
+.contact {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+}
+
+.icons {
+  display: block;
+}
+
+.icons a {
+  display: inline-block;
+  margin: 20px 30px;
+}
+
+.icons img {
+  opacity: 0.15;
+}
+
+.icons img:hover {
+  opacity: 1;
+}
+
+.container {
+  width: 900px;
+  position: relative;
+  margin: auto;
+}
+
+.logo {
+  font-family: 'Oleo Script Swash Caps', cursive;
+  color: #E3631E;
+  text-align: center;
+  font-size: 6em;
+}
+
+small {
+  font-family: Helvetica;
+  font-style: italic;
+  font-size: 1.3em;
+  color: #822E00;
+  position: absolute;
+  right: 270px;
+  top: 120px;
+}
+
+.keyboardWorld {
+  position: relative;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background-color: #A3540F;
+}
+
+.keyboard {
+  position: relative;
+  top: 25px;
+  width: 840px;
+  height: 250px;
+  margin: auto;
+}
+
+.key {
+  float: left;
+  height: 250px;
+  width: 80px;
+  background-color: white;
+  margin: 0px 2px;
+  border-radius: 0px 0px 5px 5px;
+}
+
+span {
+  position: relative;
+  font-family: Helvetica;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.key span {
+  left: 35px;
+  top: 200px;
+}
+
+.black {
+  position: absolute;
+  height: 160px;
+  background-color: black;
+  width: 60px;
+}
+
+.black span {
+  top: 120px;
+  left: 24px;
+  color: white;
+}
+
+.As {
+  left: 54px;
+}
+
+.Cs {
+  left: 222px;
+}
+
+.Ds {
+  left: 306px;
+}
+
+.Fs {
+  left: 474px;
+}
+
+.Gs {
+  left: 558px;
+}
+
+.uAs {
+  left: 642px;
+}
+
+.pressed {
+  background-color: #F0CA99;
 }

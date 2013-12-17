@@ -6,65 +6,105 @@
   <title>Keyboard Singer - Sing harmonies with yourself</title>
 </head>
 <body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        Keyboard Singer
+      </div>
+      <small>
+        Sing harmony with yourself!
+      </small>
+    </container>
+  </header>
 
-  <div class="keyboard">
-    <div class="A"></div>
-    <div class="black A#"></div>
-    <div class="B"></div>
-    <div class="black B#"></div>
-    <div class="C"></div>
-    <div class="black C#"></div>
-    <div class="D"></div>
-    <div class="black D#"></div>
-    <div class="E"></div>
-    <div class="F"></div>
-    <div class="black F#"></div>
-    <div class="G"></div>
-    <div class="black G#"></div>
-    <div class="A"></div>
-    <div class="black A#"></div>
-    <div class="B"></div>
+  <div class="keyboardWorld">
+    <div class="keyboard">
+      <div class="key A"><span>A</span></div>
+      <div class="key black As"><span>W</span></div>
+      <div class="key B"><span>S</span></div>
+      <div class="key C"><span>D</span></div>
+      <div class="key black Cs"><span>R</span></div>
+      <div class="key D"><span>F</span></div>
+      <div class="key black Ds"><span>T</span></div>
+      <div class="key E"><span>G</span></div>
+      <div class="key F"><span>H</span></div>
+      <div class="key black Fs"><span>U</span></div>
+      <div class="key G"><span>J</span></div>
+      <div class="key black Gs"><span>I</span></div>
+      <div class="key uA"><span>K</span></div>
+      <div class="key black uAs"><span>O</span></div>
+      <div class="key uB"><span>L</span></div>
+      <div class="key uC"><span>;</span></div>
+    </div>
   </div>
+
+  <footer>
+    <div class="container">
+      <div class="contact">
+        <div class="icons">
+          <a href="mailto:daniel.h.chao@gmail.com">
+            <img src="/assets/img/email.png" />
+          </a>
+          <a href="http://www.twitter.com/dhchao">
+            <img src="/assets/img/twitter.png" />
+          </a>
+          <a href="http://www.github.com/bioball">
+            <img src="/assets/img/github.png" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script src="script/pitchfinder.js"></script>
   <script src="script/bower_components/jquery/jquery.min.js"></script>
-  <script src="script/main.js"></script>
+  <script src="script/vocoder.js"></script>
   <script>
     $(function(){
       vocoder.getMicSource();
       var players = {};
       setTimeout(function(){
-        var notes = ['A', 'A#', 'B', 'B#', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+        var notes = [
+          'A',  'As',  'B',  'Bs',
+          'C',  'Cs',  'D',  'Ds',
+          'E',  'F',   'Fs', 'G',  'Gs',
+          'uA', 'uAs', 'uB', 'uC'
+        ];
         notes.forEach(function(note){
           var node = vocoder.createPitchNode(vocoder.notes[note]);
           node.isPlaying = false;
           players[note] = node;
         })
-      }, 1000);
+      }, 3000);
 
-      downKeyMap = {
-        97: "A", 119: "A#", 115: "B", 100: "C", 114: "C#", 102: "D",
-        116: "D#", 103: "E", 104: "F", 117: "F#", 106: "G", 105: "G#"
+      var downKeyMap = {
+        97:  'A',  119: 'As',  115: 'B',  100: 'C',  114: 'Cs', 102: 'D',
+        116: 'Ds', 103: 'E',   104: 'F',  117: 'Fs', 106: 'G',  105: 'Gs',
+        107: 'uA', 111: 'uAs', 108: 'uB', 59: 'uC'
       };
 
-      upKeyMap = {
-        65: "A", 87: "A#", 83: "B", 68: "C", 82: "C#", 70: "D",
-        84: "D#", 71: "E", 72: "F", 85: "F#", 74: "G", 73: "G#"
+      var upKeyMap = {
+        65: 'A',  87: 'As', 83: 'B', 68: 'C',  82: 'Cs', 70: 'D',
+        84: 'Ds', 71: 'E',  72: 'F', 85: 'Fs', 74: 'G',  73: 'Gs',
+        75: 'uA', 79: 'uAs', 76: 'uB', 186: 'uC'
       };
 
       $(document).keypress(function(key){
-        var player = players[downKeyMap[key.which]];
+        var key = downKeyMap[key.which]
+        var player = players[key];
         if(!player.isPlaying){
-          console.log("pressed key is: " + key.which);
           player.play();
           player.isPlaying = true;
+          $('.' + key).addClass('pressed');
         }
       });
 
       $(document).keyup(function(key){
-        var player = players[upKeyMap[key.which]];
+        var key = upKeyMap[key.which];
+        var player = players[key];
         player.stop();
         player.isPlaying = false;
+        $('.' + key).removeClass('pressed');
       })
     })
   </script>
