@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <title>Phase Vocoder</title>
+</head>
+<body>
+
+  <audio></audio>
+
+  <script src="lib/pitchfinder.js"></script>
+  <script src="lib/pitchshift.js"></script>
+  <script src="lib/DSP.js"></script>
+  <script src="lib/bower_components/jquery/jquery.min.js"></script>
+  <script src="lib/main.js"></script>
+  <script>
+    $(function(){
+      vocoder.getMicSource();
+    })
+  </script>
+</body>
+</html>
