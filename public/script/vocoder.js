@@ -62,14 +62,14 @@ var vocoder = {};
 
   var findPitch = function(e){
     var freq = yinDetector(e.inputBuffer.getChannelData(0)).freq;
-    if(freq > 0 && freq < 2000){
+    if(freq > 0){
       currentPitch = freq;
     }
   }
 
 
   var changePitch = function(e, targetPitch){
-    var shiftRatio = targetPitch/currentPitch;
+    var shiftRatio = 0.5;
 
     buffer     = smoothBuffer(e.inputBuffer.getChannelData(0), 20),
     buffer     = resizeBuffer(buffer, shiftRatio),
@@ -118,7 +118,6 @@ var vocoder = {};
     var newLength = buffer.length * percentage
     var newBuffer = new Float32Array(newLength)
 
-    //build out the old buffer
     for(var i = 0; i < newLength; i++){
       newBuffer[i] = buffer[i % buffer.length]
     }

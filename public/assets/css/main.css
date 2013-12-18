@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:400);
 
+/* GENERAL STYLES */
 html {
   height: 100%;
 }
@@ -9,7 +10,13 @@ body {
   background-color: #3B240D
 }
 
+.container {
+  width: 900px;
+  position: relative;
+  margin: auto;
+}
 
+/* HEADER ELEMENTS */
 header {
   position: relative;
   top: 0;
@@ -19,6 +26,24 @@ header {
   background-color: #F5EADC;
 }
 
+.logo {
+  font-family: 'Oleo Script Swash Caps', cursive;
+  color: #E3631E;
+  text-align: center;
+  font-size: 6em;
+}
+
+small {
+  font-family: Helvetica;
+  font-style: italic;
+  font-size: 1.5em;
+  color: #822E00;
+  position: absolute;
+  right: 270px;
+  top: 100px;
+}
+
+/* FOOTER ELEMENTS */
 .contact {
   position: absolute;
   right: 50px;
@@ -42,29 +67,7 @@ header {
   opacity: 1;
 }
 
-.container {
-  width: 900px;
-  position: relative;
-  margin: auto;
-}
-
-.logo {
-  font-family: 'Oleo Script Swash Caps', cursive;
-  color: #E3631E;
-  text-align: center;
-  font-size: 6em;
-}
-
-small {
-  font-family: Helvetica;
-  font-style: italic;
-  font-size: 1.3em;
-  color: #822E00;
-  position: absolute;
-  right: 270px;
-  top: 120px;
-}
-
+/* KEYBOARD */
 .keyboardWorld {
   position: relative;
   left: 0;
@@ -140,5 +143,5 @@ span {
 }
 
 .pressed {
-  background-color: #F0CA99;
+  background-color: #AAE6F0;
 }
