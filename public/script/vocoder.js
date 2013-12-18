@@ -69,9 +69,9 @@ var vocoder = {};
 
 
   var changePitch = function(e, targetPitch){
-    var shiftRatio = 0.5;
+    var shiftRatio = targetPitch/currentPitch;
 
-    buffer     = smoothBuffer(e.inputBuffer.getChannelData(0), 20),
+    buffer     = smoothBuffer(e.inputBuffer.getChannelData(0)),
     buffer     = resizeBuffer(buffer, shiftRatio),
     source     = context.createBufferSource()
     gain       = context.createGain();
@@ -85,7 +85,17 @@ var vocoder = {};
     source.start(0);
   };
 
-  var smoothBuffer = function(buffer, size){
+  var resizeBuffer = function(buffer, percentage){
+    var newLength = buffer.length * percentage
+    var newBuffer = new Float32Array(newLength)
+
+    for(var i = 0; i < newLength; i++){
+      newBuffer[i] = buffer[i % buffer.length]
+    }
+    return newBuffer;
+  }
+
+  var smoothBuffer = function(buffer){
     var i = 0;
     if(buffer[0] < 0){
       while(buffer[i] < 0){
@@ -114,18 +124,10 @@ var vocoder = {};
     return buffer;
   }
 
-  var resizeBuffer = function(buffer, percentage){
-    var newLength = buffer.length * percentage
-    var newBuffer = new Float32Array(newLength)
-
-    for(var i = 0; i < newLength; i++){
-      newBuffer[i] = buffer[i % buffer.length]
-    }
-    return newBuffer;
-  }
 
 
   var getPitch = function(buffer){
+    var time
     return yinDetector(buffer)
   };
 })(vocoder);

@@ -1,6 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:400);
 
 /* GENERAL STYLES */
+.favicon {
+  font-family: 'Oleo Script Swash Caps';
+  font-size: 12px;
+  background-color: #E3631E;
+  color: white;
+  padding-left: 20px;
+}
+
 html {
   height: 100%;
 }
@@ -46,25 +54,24 @@ small {
 /* FOOTER ELEMENTS */
 .contact {
   position: absolute;
-  right: 50px;
+  right: 333px;
   top: 50px;
-}
-
-.icons {
-  display: block;
 }
 
 .icons a {
   display: inline-block;
-  margin: 20px 30px;
+  margin: 0px 30px;
+  font-family: 'FontAwesome';
+  color: #996d43;
+  text-decoration: none;
 }
 
-.icons img {
-  opacity: 0.15;
+.icons a:hover {
+  color: #AAE6F0;
 }
 
-.icons img:hover {
-  opacity: 1;
+.icons i {
+  font-style: normal;
 }
 
 /* KEYBOARD */
@@ -86,6 +93,7 @@ small {
 
 .key {
   float: left;
+  text-align: center;
   height: 250px;
   width: 80px;
   background-color: white;
@@ -96,12 +104,11 @@ small {
 span {
   position: relative;
   font-family: Helvetica;
-  font-weight: 700;
+  font-weight: 300;
   font-size: 1.2em;
 }
 
 .key span {
-  left: 35px;
   top: 200px;
 }
 
@@ -114,32 +121,32 @@ span {
 
 .black span {
   top: 120px;
-  left: 24px;
   color: white;
+  font-weight: 200;
 }
 
 .As {
-  left: 54px;
+  left: 52px;
 }
 
 .Cs {
-  left: 222px;
+  left: 220px;
 }
 
 .Ds {
-  left: 306px;
+  left: 304px;
 }
 
 .Fs {
-  left: 474px;
+  left: 472px;
 }
 
 .Gs {
-  left: 558px;
+  left: 556px;
 }
 
 .uAs {
-  left: 642px;
+  left: 640px;
 }
 
 .pressed {
