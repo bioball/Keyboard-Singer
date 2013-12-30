@@ -152,3 +152,26 @@ span {
 .pressed {
   background-color: #AAE6F0;
 }
+
+/* DISCLAIMER & INSTRUCTIONS */
+
+.screen {
+  background-color: black;
+  position: absolute;
+  opacity: 0.7;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.disclaimer {
+  position: absolute;
+  top: 300px;
+  right: 0;
+  left: 0;
+  height: 700px;
+  text-align: center;
+  color: white;
+  font-family: Helvetica;
+}

@@ -41,73 +41,40 @@
     </div>
   </div>
 
-    <div class="container">
-      <div class="contact">
-        <div class="icons">
-          <a href="mailto:daniel.h.chao@gmail.com">
-            <i class="fa-envelope"></i>
-          </a>
-          <a href="http://www.twitter.com/dhchao">
-            <i class="fa-twitter"></i>
-          </a>
-          <a href="http://www.github.com/bioball">
-            <i class="fa-github-alt"></i>
-          </a>
-        </div>
+  <div class="container">
+    <div class="contact">
+      <div class="icons">
+        <a href="mailto:daniel.h.chao@gmail.com">
+          <i class="fa-envelope"></i>
+        </a>
+        <a href="http://www.twitter.com/dhchao">
+          <i class="fa-twitter"></i>
+        </a>
+        <a href="http://www.github.com/bioball">
+          <i class="fa-github-alt"></i>
+        </a>
       </div>
     </div>
+  </div>
+
+<!--   <div class="screen"></div>
+  <div class="disclaimer">
+    <div class="container">
+      <h1>Welcome to Keyboard Singer!</h1>
+      Before you begin, please make sure you are running the latest version of Chrome, and that there is a good distance between your speakers and microphone. If you are on a laptop, you will want to plug your headphones in.
+      <input type="button" value="OK"></input>
+    </div>
+  </div> -->
 
   <script src="script/pitchfinder.js"></script>
   <script src="script/bower_components/jquery/jquery.min.js"></script>
   <script src="script/vocoder.js"></script>
+  <script src="script/listeners.js"></script>
   <script>
     $(function(){
+      addListeners();
       vocoder.getMicSource();
-      var players = {};
-      setTimeout(function(){
-        var notes = [
-          'A',  'As',  'B',  'Bs',
-          'C',  'Cs',  'D',  'Ds',
-          'E',  'F',   'Fs', 'G',  'Gs',
-          'uA', 'uAs', 'uB', 'uC'
-        ];
-        notes.forEach(function(note){
-          var node = vocoder.createPitchNode(vocoder.notes[note]);
-          node.isPlaying = false;
-          players[note] = node;
-        })
-      }, 3000);
-
-      var downKeyMap = {
-        97:  'A',  119: 'As',  115: 'B',  100: 'C',  114: 'Cs', 102: 'D',
-        116: 'Ds', 103: 'E',   104: 'F',  117: 'Fs', 106: 'G',  105: 'Gs',
-        107: 'uA', 111: 'uAs', 108: 'uB', 59: 'uC'
-      };
-
-      var upKeyMap = {
-        65: 'A',  87: 'As', 83: 'B', 68: 'C',  82: 'Cs', 70: 'D',
-        84: 'Ds', 71: 'E',  72: 'F', 85: 'Fs', 74: 'G',  73: 'Gs',
-        75: 'uA', 79: 'uAs', 76: 'uB', 186: 'uC'
-      };
-
-      $(document).keypress(function(key){
-        var key = downKeyMap[key.which]
-        var player = players[key];
-        if(!player.isPlaying){
-          player.play();
-          player.isPlaying = true;
-          $('.' + key).addClass('pressed');
-        }
-      });
-
-      $(document).keyup(function(key){
-        var key = upKeyMap[key.which];
-        var player = players[key];
-        player.stop();
-        player.isPlaying = false;
-        $('.' + key).removeClass('pressed');
-      })
-    })
+    });
   </script>
 </body>
 </html>

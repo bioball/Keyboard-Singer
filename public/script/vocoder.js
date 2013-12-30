@@ -11,15 +11,28 @@ var vocoder = {};
     currentPitch;
 
   vocoder.notes = {
-    'A':   110,     'As':  116.541,
-    'B':   123.471,
-    'C':   130.813, 'Cs':  138.591,
-    'D':   146.832, 'Ds':  155.563,
-    'E':   164.814,
-    'F':   174.614, 'Fs':  174.614,
-    'G':   195.998, 'Gs':  207.652,
-    'uA':  220,     'uAs': 233.082,
-    'uB':  246.942, 'uC':  261.626
+    octave1: {
+      'A':  110,     'As':  116.541,
+      'B':  123.471,
+      'C':  130.813, 'Cs':  138.591,
+      'D':  146.832, 'Ds':  155.563,
+      'E':  164.814,
+      'F':  174.614, 'Fs':  174.614,
+      'G':  195.998, 'Gs':  207.652,
+      'uA': 220,     'uAs': 233.082,
+      'uB': 246.942, 'uC':  261.626
+    },
+    octave2: {
+      'A':  220,     'As':  233.082,
+      'B':  246.942,
+      'C':  261.626, 'Cs':  277.183,
+      'D':  293.665, 'Ds':  311.127,
+      'E':  329.528,
+      'F':  349.228, 'Fs':  369.994,
+      'G':  391.995, 'Gs':  415.305,
+      'uA': 440,     'uAs': 466.164,
+      'uB': 493.883, 'uC':  523.251
+    }
   };
 
   vocoder.getMicSource = function(){
@@ -32,7 +45,15 @@ var vocoder = {};
     }
   };
 
-  vocoder.createPitchNode = function(targetPitch){
+  vocoder.createPlayers = function(octave){
+    octave = octave || 'octave1';
+    vocoder.players = {};
+    Object.keys(vocoder.notes[octave]).forEach(function(note){
+      vocoder.players[note] = createPitchNode(vocoder.notes[octave][note]);
+    })
+  };
+
+  var createPitchNode = function(targetPitch){
     var node = context.createJavaScriptNode(2048, 1, 1);
     sourceNode.connect(node);
     node.onaudioprocess = function(e){
@@ -40,19 +61,20 @@ var vocoder = {};
     };
     node.play = function(){
       this.connect(context.destination);
-    }
+      this.isPlaying = true;
+    };
     node.stop = function(){
       this.disconnect(context.destination);
-    }
+      this.isPlaying = false;
+    };
+    node.isPlaying = false;
     return node;
   };
 
   var initialize = function(micSource){
-
-    // mic source --> gain --> pitchfinder --> context.destination
-    sourceNode    = context.createMediaStreamSource(micSource);
-    var gainNode  = context.createGain();
-    var pitchNode = context.createJavaScriptNode(2048, 1, 1);
+    sourceNode     = context.createMediaStreamSource(micSource);
+    var gainNode   = context.createGain();
+    var pitchNode  = context.createJavaScriptNode(2048, 1, 1);
     pitchNode.onaudioprocess = findPitch;
 
     sourceNode.connect(gainNode);
@@ -65,8 +87,7 @@ var vocoder = {};
     if(freq > 0){
       currentPitch = freq;
     }
-  }
-
+  };
 
   var changePitch = function(e, targetPitch){
     var shiftRatio = targetPitch/currentPitch;
@@ -93,7 +114,7 @@ var vocoder = {};
       newBuffer[i] = buffer[i % buffer.length]
     }
     return newBuffer;
-  }
+  };
 
   var smoothBuffer = function(buffer){
     var i = 0;
@@ -114,20 +135,16 @@ var vocoder = {};
         buffer[i] = 0;
         i--;
       }
-    }
-    if(buffer[buffer.length - 1] > 0){
+    } else {
       while(buffer[i] > 0){
         buffer[i] = 0;
         i--;
       }
     }
     return buffer;
-  }
-
-
+  };
 
   var getPitch = function(buffer){
-    var time
     return yinDetector(buffer)
   };
-})(vocoder);
+})();
